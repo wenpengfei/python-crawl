@@ -1,9 +1,10 @@
 #!/usr/bin/python
-"""module"""
+"""get_soup"""
 import urllib2
 from bs4 import BeautifulSoup
-"""ssfsf"""
-def getSoup(url, encoding = "gbk"):
+def get_soup(url, encoding="gbk"):
+    """get_soup"""
     response = urllib2.urlopen(url)
     soup = BeautifulSoup(response, "html.parser", from_encoding=encoding)
     return soup
+    
