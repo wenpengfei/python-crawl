@@ -1,7 +1,7 @@
 #!/usr/bin/python
 """-"""
 from utils.model import Film
-from utils.getSoup import get_soup
+from utils.soup_helper import get_soup
 ROOT_URL = "http://www.dytt8.net"
 SOUP = get_soup(ROOT_URL + '/index.htm')
 TITLES = SOUP.select_one('.co_area2').select('.co_content2 a')

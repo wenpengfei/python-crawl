@@ -1,7 +1,7 @@
 #!/usr/bin/python
 """-"""
 from utils.model import Film
-from utils.getSoup import get_soup
+from utils.soup_helper import get_soup
 
 ROOT_URL = "http://www.zmz2017.com/"
 FILMS = []
