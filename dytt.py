@@ -5,7 +5,7 @@ from utils.getSoup import getSoup
 
 ROOT_URL = "http://www.dytt8.net"
 
-SOUP = getSoup(ROOT_URL + '/index.html')
+SOUP = getSoup(ROOT_URL + '/index.htm')
 TITLES = SOUP.select_one('.co_area2').select('.co_content2 a')
 FILMS = []
 for item in TITLES:
