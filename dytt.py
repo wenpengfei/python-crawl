@@ -5,8 +5,8 @@ from utils.model import Film
 from utils.soup_helper import get_soup
 
 client = MongoClient('mongodb://localhost:27017/')
-db = client.test_database
-posts = db.posts
+db = client.EpicWork
+movies = db.movies
 
 ROOT_URL = "http://www.dytt8.net"
 SOUP = get_soup(ROOT_URL + '/index.htm')
@@ -25,12 +25,11 @@ try:
                 filmImg = detailImg['src']
                 filmDownload = detailDownload['href']
                 FILMS.append({"filmTitle":filmTitle,"filmImg":filmImg,"filmDownload":filmDownload})
-            # for test in FILMS:
-            #     print test.title
-            #     print test.img_url
-            #     print test.description
-            #     print test.download_url
-    result = posts.insert_many(FILMS)
+            for test in FILMS:
+                print filmTitle
+                print filmImg
+                print filmDownload
+    result = movies.insert_many(FILMS)
     print result
 except Exception, e:
     print e.message
