@@ -26,14 +26,25 @@ for item in TITLES:
             )
         detailImg = detailSoup.select_one("#Zoom img")
         detailDownload = detailSoup.select_one("#Zoom table a")
+        detailInfo = detailSoup.select_one("#Zoom p")
         if detailImg and detailTitle and detailDownload:
             originFilmTitle = detailTitle.text
-            print 'originFilmTitle'
-            print str(originFilmTitle)
-            print '=============================='
             filmTitle = ""
             filmImg = detailImg['src']
             filmDownload = detailDownload['href']
+
+            # douban_detailUrl = ''
+            # douban_rate = re.findall("◎导　　演(.+?)<br />", str(originFilmTitle))
+            # douban_director = re.findall("◎导　　演(.+?)<br />", str(originFilmTitle))
+            # douban_screenwriter = re.findall("◎导　　演(.+?)<br />", str(originFilmTitle))
+            # douban_actor = re.findall("◎导　　演(.+?)<br />", str(originFilmTitle))
+            # douban_genre = re.findall("◎导　　演(.+?)<br />", str(originFilmTitle))
+            # douban_country = re.findall("◎导　　演(.+?)<br />", str(originFilmTitle))
+            # douban_language = re.findall("◎导　　演(.+?)<br />", str(originFilmTitle))
+            # douban_releaseDate = re.findall("◎导　　演(.+?)<br />", str(originFilmTitle))
+            # douban_runtime = re.findall("◎导　　演(.+?)<br />", str(originFilmTitle))
+            # douban_imdbUrl = re.findall("◎导　　演(.+?)<br />", str(originFilmTitle))
+            # imdb_rate = re.findall("◎导　　演(.+?)<br />", str(originFilmTitle))
 
             idx = originFilmTitle.find("《")
             if idx != -1:
@@ -45,12 +56,20 @@ for item in TITLES:
                     "originFilmTitle":originFilmTitle,
                     "filmTitle":filmTitle,
                     "filmImg":filmImg,
-                    "filmDownload":filmDownload
+                    "filmDownload":filmDownload,
+                    "releaseDate": dytt_releaseDate,
+                    "genre": dytt_genre,
+                    "director": dytt_director,
+                    "actor": dytt_actor,
                 })
-        for test in FILMS:
-            print filmTitle
-            print filmImg
-            print originFilmTitle
-            print filmDownload
 RESULT = MOVIES.insert_many(FILMS)
 print RESULT
+        # for test in FILMS:
+        #     print filmTitle
+        #     print filmImg
+        #     print originFilmTitle
+        #     print filmDownload
+
+
+# def getDyttDetail(regexp, source):
+#     return re.findall(regexp, str(source)[0]
