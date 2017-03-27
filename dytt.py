@@ -57,10 +57,10 @@ for item in TITLES:
                     "filmTitle":filmTitle,
                     "filmImg":filmImg,
                     "filmDownload":filmDownload,
-                    "releaseDate": dytt_releaseDate,
-                    "genre": dytt_genre,
-                    "director": dytt_director,
-                    "actor": dytt_actor,
+                    # "releaseDate": dytt_releaseDate,
+                    # "genre": dytt_genre,
+                    # "director": dytt_director,
+                    # "actor": dytt_actor,
                 })
 RESULT = MOVIES.insert_many(FILMS)
 print RESULT
