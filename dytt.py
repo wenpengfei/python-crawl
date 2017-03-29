@@ -51,6 +51,7 @@ for item in TITLES:
                 filmTitle = re.findall("《(.+?)》", str(originFilmTitle))[0]
             else:
                 filmTitle = originFilmTitle
+            print filmTitle
             FILMS.append(
                 {
                     "originFilmTitle":originFilmTitle,
