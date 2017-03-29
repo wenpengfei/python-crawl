@@ -79,8 +79,3 @@ for itemdoc in ITEMSDOCS:
     movie_douban_url = get_douban_url(DETAILSOUP)
     movie_attrs = get_attrs(DETAILSOUP)
     print movie_attrs
-
-
-
-
-
