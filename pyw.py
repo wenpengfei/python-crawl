@@ -50,18 +50,6 @@ def get_attrs(detail_soup):
         result.append({str(val.text): str(attr_values_formatted[i]).strip()})
     return result
 
-
-
-
-
-
-
-
-
-
-
-
-
 HTMLDOC = get_soup('http://pianyuan.net/mv?order=update&p=1')
 ITEMSDOCS = HTMLDOC.select('.nopl')
 
