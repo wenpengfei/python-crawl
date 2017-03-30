@@ -50,7 +50,12 @@ def get_attrs(detail_soup):
             attr_values_formatted.append(','.join(arr_result))
     for i, val in enumerate(attr_names_soup):
         # result.append({str(val.text): str(attr_values_formatted[i]).strip()})
-        result[str(val.text)] = str(attr_values_formatted[i]).strip()
+        key_name = ''
+        if str(val.text).endswith(':'):
+            key_name = str(val.text).strip(':')
+        else:
+            key_name = str(val.text)
+        result[key_name] = str(attr_values_formatted[i]).strip()
     print result
     return result
 
