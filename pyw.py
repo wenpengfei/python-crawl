@@ -50,6 +50,39 @@ def get_attrs(detail_soup):
         result.append({str(val.text): str(attr_values_formatted[i]).strip()})
     return result
 
+def get_download_url(detail_soup):
+    """-"""
+    download_result = []
+    download_resources_soup = detail_soup.select('.odd,.even')
+    for i, val in enumerate(download_resources_soup):
+        download_resource_item = BeautifulSoup(str(val), 'html.parser')
+        download_detail = download_resource_item.find_all('td')
+        detail_url = BeautifulSoup(str(download_detail[0]), 'html.parser').find('a')['href']
+        if detail_url is None:
+            return []
+        else:
+            download_types = {
+                'bt': '',
+                'cl': '',
+                'zm': ''
+            }
+            detail_url = ROOT_URL + detail_url
+            download_soup = get_soup(detail_url).select('.tdown a')
+            if len(download_soup) > 0:
+                download_types['bt'] = ROOT_URL + BeautifulSoup(str(download_soup[0]), 'html.parser').find('a')['href']
+            if len(download_soup) > 1:
+                download_types['cl'] = BeautifulSoup(str(download_soup[1]), 'html.parser').find('a')['href']
+            if len(download_soup) > 2:
+                download_types['zm'] = BeautifulSoup(str(download_soup[2]), 'html.parser').find('a')['href']
+            MOVIES.insert_one(download_types)
+            download_result.append({
+                'file_url': download_types,
+                'file_name': BeautifulSoup(str(download_detail[0]), 'html.parser').find('a').text,
+                'file_size': BeautifulSoup(str(download_detail[1]), 'html.parser').find('td').text,
+            })
+    return download_result
+
+
 HTMLDOC = get_soup('http://pianyuan.net/mv?order=update&p=1')
 ITEMSDOCS = HTMLDOC.select('.nopl')
 
@@ -66,4 +99,4 @@ for itemdoc in ITEMSDOCS:
     movie_year = get_year(item_soup.select_one('.thumbnail')['title'])
     movie_douban_url = get_douban_url(DETAILSOUP)
     movie_attrs = get_attrs(DETAILSOUP)
-    print movie_attrs
+    movie_download_url = get_download_url(DETAILSOUP)
