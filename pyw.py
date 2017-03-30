@@ -10,6 +10,8 @@ from bs4 import BeautifulSoup
 reload(sys)
 sys.setdefaultencoding('utf8')
 
+FILMS = []
+
 CLIENT = MongoClient('mongodb://localhost:27017/')
 DB = CLIENT.EpicWork
 MOVIES = DB.movies
@@ -74,7 +76,6 @@ def get_download_url(detail_soup):
                 download_types['cl'] = BeautifulSoup(str(download_soup[1]), 'html.parser').find('a')['href']
             if len(download_soup) > 2:
                 download_types['zm'] = BeautifulSoup(str(download_soup[2]), 'html.parser').find('a')['href']
-            MOVIES.insert_one(download_types)
             download_result.append({
                 'file_url': download_types,
                 'file_name': BeautifulSoup(str(download_detail[0]), 'html.parser').find('a').text,
@@ -100,3 +101,15 @@ for itemdoc in ITEMSDOCS:
     movie_douban_url = get_douban_url(DETAILSOUP)
     movie_attrs = get_attrs(DETAILSOUP)
     movie_download_url = get_download_url(DETAILSOUP)
+    print movie_title
+    FILMS.append(
+        {
+            "filmTitle":movie_title,
+            "filmImg":movie_img_url,
+            "filmDownload": movie_download_url,
+            "filmYear": movie_year,
+            "filmDoubanRate": movie_douban_rate,
+            "filmDoubanLink": movie_douban_url,
+            "filmAttrs": movie_attrs
+        })
+print MOVIES.insert_many(FILMS)
