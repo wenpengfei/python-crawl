@@ -56,7 +56,6 @@ def get_attrs(detail_soup):
         else:
             key_name = str(val.text)
         result[key_name] = str(attr_values_formatted[i]).strip()
-    print result
     return result
 
 def get_download_url(detail_soup):
@@ -90,13 +89,11 @@ def get_download_url(detail_soup):
             })
     return download_result
 
-
-HTMLDOC = get_soup('http://pianyuan.net/mv?order=update&p=1')
+HTMLDOC = get_soup('http://pianyuan.net/mv?order=score&p=1')
 ITEMSDOCS = HTMLDOC.select('.nopl')
 
 for itemdoc in ITEMSDOCS:
     item_soup = BeautifulSoup(str(itemdoc), 'html.parser')
-
     SOURCE_URL = ROOT_URL + item_soup.select_one('.thumbnail')['href']
     DETAILSOUP = get_soup(SOURCE_URL)
 
